@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        sans:    ['ZonaPro', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['FindSansPro', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, Building2, LayoutGrid, Box, FileText, Eye, ShoppingBag, Hammer,
-  CheckCircle2, ChevronDown, Phone, MessageCircle, ArrowUpRight,
+  CheckCircle2, ChevronDown, Phone, ArrowUpRight,
   Menu, X,
 } from 'lucide-react'
 import Logo from './components/Logo'
@@ -38,27 +38,65 @@ const SERVICES = [
   { icon: Hammer,      title: 'Ремонт под ключ',              desc: 'Полный цикл реализации: от проекта до готового пространства.' },
 ]
 
-const FORMATS = [
+const PACKAGES = [
   {
-    name: 'LIGHT',
-    tag: 'Базовый',
-    items: ['Планировочное решение', 'Базовые чертежи'],
-    note: 'Для тех, кому важно грамотно организовать пространство',
-    highlight: false,
+    title: 'Базовый проект',
+    price: 'от 6.000 тг/м²',
+    subtitle: 'Концепция интерьера + чертежи, без 3D',
+    preview: [
+      'Выезд на замер и обмерный план',
+      'Планировка с расстановкой мебели',
+      'До 5 вариантов планировочного решения',
+    ],
+    extra: [
+      'Подбор стилистики, материалов и мебели в формате коллажей',
+      'Планы демонтажа и монтажа перегородок',
+      'Электрика: розетки, выключатели, выводы',
+      'Сценарии освещения для каждой зоны',
+      'Размещение сантехнического оборудования',
+      'Планы полов и потолков',
+      'Ведомость основных материалов и мебели',
+    ],
   },
   {
-    name: 'STANDART',
-    tag: 'Популярный',
-    items: ['Планировочное решение', '3D-визуализация', 'Рабочие чертежи'],
-    note: 'Для полноценной подготовки проекта к реализации',
-    highlight: true,
+    title: 'Проект с 3D-визуализацией',
+    price: 'от 8.000 тг/м²',
+    subtitle: 'Индивидуальный проект + чертежи, 3D визуализация',
+    preview: [
+      'Выезд на замер и обмерный план',
+      'Планировка с расстановкой мебели',
+      'До 10 вариантов планировочного решения',
+    ],
+    extra: [
+      '3D-визуализация всех помещений',
+      'Планы демонтажа и монтажа перегородок',
+      'План электрики и освещения',
+      'Сценарии освещения по помещениям',
+      'План сантехнического оборудования',
+      'Планы полов и потолков',
+      'Раскладка керамогранита',
+      'Ведомость материалов и мебели',
+    ],
   },
   {
-    name: 'PREMIUM',
-    tag: 'Полный цикл',
-    items: ['Планировочное решение', '3D-визуализация', 'Полный комплект чертежей', 'Комплектация', 'Сопровождение реализации'],
-    note: 'Для тех, кто хочет пройти весь путь системно и без стресса',
-    highlight: false,
+    title: 'Авторское сопровождение ремонта',
+    price: 'от 180.000 тг/месяц',
+    subtitle: 'От строительства до готового интерьера',
+    preview: [
+      'Подбор строительной бригады под ваш бюджет',
+      'Подготовка сметы по проекту',
+      'Подбор поставщиков материалов, мебели и декора',
+    ],
+    extra: [
+      'Организация тендера среди мебельных компаний',
+      'Контроль соответствия мебели проекту',
+      'Ведение бюджета и графика закупок',
+      'Проверка счетов и контроль поставки материалов',
+      'Выезды в салоны и магазины для подбора материалов',
+      'Регулярные выезды на объект',
+      'Ведение журнала авторского надзора',
+      'Фото- и видеоотчёты по ходу работ',
+    ],
   },
 ]
 
@@ -126,20 +164,20 @@ const stagger = {
 
 function SectionLabel({ children }) {
   return (
-    <p className="mb-4 text-xs uppercase tracking-[0.38em] text-[#B8A082]">{children}</p>
+    <p className="mb-4 text-xs uppercase tracking-[0.38em] text-[#60899b]">{children}</p>
   )
 }
 
 function FAQItem({ q, a, isOpen, toggle }) {
   return (
-    <div className="border-b border-[#DDD5C8]">
+    <div className="border-b border-[#d5d4c8]">
       <button
         onClick={toggle}
-        className="flex w-full items-center justify-between py-5 text-left text-[15px] font-medium text-[#1C1814] transition hover:text-[#7A7068]"
+        className="flex w-full items-center justify-between py-5 text-left text-[15px] font-medium text-[#1C1814] transition hover:text-[#989898]"
       >
         {q}
         <ChevronDown
-          className={`ml-4 h-5 w-5 flex-shrink-0 text-[#B8A082] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          className={`ml-4 h-5 w-5 flex-shrink-0 text-[#60899b] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
       <AnimatePresence initial={false}>
@@ -151,7 +189,7 @@ function FAQItem({ q, a, isOpen, toggle }) {
             transition={{ duration: 0.28 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-sm text-[#7A7068] leading-relaxed">{a}</p>
+            <p className="pb-5 text-sm text-[#989898] leading-relaxed">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -163,6 +201,8 @@ function FAQItem({ q, a, isOpen, toggle }) {
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileBottomOpen, setMobileBottomOpen] = useState(false)
+  const [expandedPkg, setExpandedPkg] = useState({})
   const [openFaq, setOpenFaq]       = useState(null)
   const [scrolled, setScrolled]     = useState(false)
   const [activeSection, setActiveSection] = useState('')
@@ -198,12 +238,12 @@ export default function App() {
   }
 
   return (
-    <div className="bg-[#F7F4EF] text-[#1C1814] overflow-x-hidden">
+    <div className="bg-[#f2edea] text-[#1C1814] overflow-x-hidden">
 
       {/* ── Nav ── */}
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? 'bg-[#F7F4EF]/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 hidden md:block ${
+          scrolled ? 'bg-[#f2edea]/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
         }`}
       >
         <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
@@ -211,7 +251,7 @@ export default function App() {
             href="#"
             aria-label="MAG Studio"
             className={`transition-colors duration-300 ${
-              scrolled ? 'text-[#1C1814]' : 'text-[#F7F4EF]'
+              scrolled ? 'text-[#1C1814]' : 'text-[#f2edea]'
             }`}
           >
             <Logo className="h-9 w-auto" />
@@ -220,10 +260,10 @@ export default function App() {
           <nav className="hidden gap-8 md:flex">
             {NAV_LINKS.map(link => {
               const isActive = activeSection === link.href.slice(1)
-              const baseColor = scrolled ? 'text-[#7A7068]' : 'text-[#C8B8A0]'
-              const hoverColor = scrolled ? 'hover:text-[#1C1814]' : 'hover:text-[#F7F4EF]'
+              const baseColor = scrolled ? 'text-[#989898]' : 'text-[#c4c2aa]'
+              const hoverColor = scrolled ? 'hover:text-[#1C1814]' : 'hover:text-[#f2edea]'
               const activeColor = isActive
-                ? scrolled ? 'text-[#1C1814] font-semibold' : 'text-[#F7F4EF] font-semibold'
+                ? scrolled ? 'text-[#1C1814] font-semibold' : 'text-[#f2edea] font-semibold'
                 : ''
               return (
                 <a
@@ -235,7 +275,7 @@ export default function App() {
                   {isActive && (
                     <span
                       className={`absolute -bottom-1.5 left-0 right-0 h-px ${
-                        scrolled ? 'bg-[#1C1814]' : 'bg-[#F7F4EF]'
+                        scrolled ? 'bg-[#1C1814]' : 'bg-[#f2edea]'
                       }`}
                     />
                   )}
@@ -248,9 +288,9 @@ export default function App() {
             href="https://wa.me/77083460065"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-[#1C1814] px-5 py-2.5 text-sm text-[#F7F4EF] transition hover:bg-[#2A2420] md:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-[#1C1814] px-5 py-2.5 text-sm text-[#f2edea] transition hover:bg-[#2A2420] md:inline-flex"
           >
-            <MessageCircle className="h-4 w-4" />
+            <img src="/whatsapp.svg" alt="" className="h-4 w-4" />
             WhatsApp
           </a>
 
@@ -265,7 +305,7 @@ export default function App() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden border-t border-[#DDD5C8] bg-[#F7F4EF] md:hidden"
+              className="overflow-hidden border-t border-[#d5d4c8] bg-[#f2edea] md:hidden"
             >
               <div className="flex flex-col gap-4 px-6 py-6">
                 {NAV_LINKS.map(link => (
@@ -284,7 +324,7 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="mt-2 inline-flex items-center gap-2 text-sm font-medium"
                 >
-                  <MessageCircle className="h-4 w-4" /> Написать в WhatsApp
+                  <img src="/whatsapp.svg" alt="" className="h-4 w-4" /> Написать в WhatsApp
                 </a>
               </div>
             </motion.div>
@@ -301,17 +341,17 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
           >
-            <p className="mb-6 text-xs uppercase tracking-[0.42em] text-[#B8A082]">
+            <p className="mb-6 text-xs uppercase tracking-[0.42em] text-[#60899b]">
               Алматы · Казахстан
             </p>
 
-            <h1 className="font-display text-4xl leading-[1.08] text-[#F7F4EF] md:text-5xl lg:text-[56px]">
-              Продуманные интерьеры.<br />Реализуемые решения.
+            <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
+              Дизайн интерьера и ремонт под ключ.
             </h1>
 
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#9A8E80]">
-              Дизайн интерьера и ремонт под ключ для жилых и коммерческих
-              помещений в Алматы.
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#989898]">
+              Создаём интерьеры, которые можно реально реализовать: от планировки
+              и дизайн-проекта до авторского надзора и ремонта.
             </p>
 
             <ul className="mt-8 space-y-2.5">
@@ -320,8 +360,8 @@ export default function App() {
                 'Интерьеры с учётом бюджета и реальной реализации',
                 'Сопровождение от идеи до готового результата',
               ].map(item => (
-                <li key={item} className="flex items-center gap-3 text-sm text-[#C8B8A0]">
-                  <span className="h-px w-6 flex-shrink-0 bg-[#B8A082]" />
+                <li key={item} className="flex items-center gap-3 text-sm text-[#c4c2aa]">
+                  <span className="h-px w-6 flex-shrink-0 bg-[#60899b]" />
                   {item}
                 </li>
               ))}
@@ -330,17 +370,17 @@ export default function App() {
             <div className="mt-10 flex flex-wrap gap-3">
               <a
                 href="#contact"
-                className="rounded-full bg-[#F7F4EF] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
+                className="rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
               >
-                Оставить заявку
+                Рассчитать стоимость
               </a>
               <a
                 href="https://wa.me/77083460065"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-[#F7F4EF]/25 px-7 py-3.5 text-sm text-[#F7F4EF] transition hover:border-[#F7F4EF]/60"
+                className="flex items-center gap-2 rounded-full border border-[#F7F4EF]/25 px-7 py-3.5 text-sm text-[#f2edea] transition hover:border-[#F7F4EF]/60"
               >
-                <MessageCircle className="h-4 w-4" />
+                <img src="/whatsapp.svg" alt="" className="h-4 w-4" />
                 Написать в WhatsApp
               </a>
             </div>
@@ -363,219 +403,139 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* ── About ── */}
-      <section id="about" className="mx-auto grid max-w-[1200px] gap-16 px-6 py-24 md:grid-cols-2 md:items-center md:py-32">
-        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-          <SectionLabel>О студии</SectionLabel>
-          <h2 className="font-display text-4xl leading-tight md:text-5xl">
-            MAG Studio — студия дизайна интерьера и реализации пространства.
-          </h2>
-          <p className="mt-6 text-[#7A7068] leading-relaxed">
-            Мы создаём современные, функциональные и эстетичные решения для
-            квартир, домов и коммерческих помещений.
-          </p>
-          <p className="mt-4 text-[#7A7068] leading-relaxed">
-            Для нас важно не просто сделать красивую картинку, а разработать
-            проект, который будет удобен в жизни и понятен в реализации.
-          </p>
-          <a
-            href="#contact"
-            className="mt-8 inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4 transition hover:text-[#7A7068]"
-          >
-            Обсудить проект <ArrowUpRight className="h-4 w-4" />
-          </a>
+      {/* ── About / Directions ── */}
+      <section id="about" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14 text-center">
+          <SectionLabel>Наши направления</SectionLabel>
+          <h2 className="font-display text-4xl md:text-5xl">Чем мы занимаемся</h2>
         </motion.div>
 
         <motion.div
-          variants={fadeUp}
+          variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          className="overflow-hidden rounded-2xl"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid gap-6 md:grid-cols-3"
         >
-          <img
-            src="https://images.unsplash.com/photo-1616594039964-3fc0a39f4df4?w=900&auto=format&fit=crop&q=80"
-            alt="О студии MAG"
-            className="h-[480px] w-full object-cover"
-          />
+          {[
+            {
+              icon: Home,
+              title: 'Дизайн жилых помещений',
+              desc: 'Квартиры и загородные дома',
+            },
+            {
+              icon: Building2,
+              title: 'Дизайн коммерческих помещений',
+              desc: 'Офисы, кафе, рестораны и др.',
+            },
+            {
+              icon: LayoutGrid,
+              title: 'Архитектура и проектирование',
+              desc: 'Архитектурное и инженерное проектирование',
+            },
+          ].map(({ icon: Icon, title, desc }) => (
+            <motion.div
+              key={title}
+              variants={fadeUp}
+              className="flex flex-col items-center text-center rounded-2xl border border-[#d5d4c8] bg-white p-8 transition duration-300 hover:-translate-y-1 hover:shadow-md"
+            >
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#f2edea]">
+                <Icon className="h-7 w-7 text-[#60899b]" strokeWidth={1.5} />
+              </div>
+              <h3 className="font-display text-2xl leading-snug">{title}</h3>
+              <p className="mt-3 text-sm text-[#989898] leading-relaxed">{desc}</p>
+            </motion.div>
+          ))}
         </motion.div>
       </section>
 
-      {/* ── Services ── */}
-      <section id="services" className="bg-[#F0EBE3] py-24 md:py-32">
-        <div className="mx-auto max-w-[1200px] px-6">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14">
-            <SectionLabel>Услуги</SectionLabel>
-            <h2 className="font-display text-4xl md:text-5xl">Наши услуги</h2>
-          </motion.div>
 
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-          >
-            {SERVICES.map(({ icon: Icon, title, desc }) => (
-              <motion.div
-                key={title}
-                variants={fadeUp}
-                className="rounded-2xl bg-white p-7 transition duration-300 hover:-translate-y-1 hover:shadow-md"
-              >
-                <Icon className="mb-5 h-6 w-6 text-[#B8A082]" strokeWidth={1.5} />
-                <h3 className="font-medium leading-snug">{title}</h3>
-                <p className="mt-3 text-sm text-[#7A7068] leading-relaxed">{desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Formats ── */}
+      {/* ── Packages ── */}
       <section className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14">
-          <SectionLabel>Форматы работы</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl">Выберите формат</h2>
+          <h2 className="font-display text-4xl md:text-5xl">Пакеты услуг</h2>
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {FORMATS.map(({ name, tag, items, note, highlight }) => (
-            <motion.div
-              key={name}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.3 }}
-              className={`flex flex-col rounded-2xl p-8 ${
-                highlight
-                  ? 'bg-[#221E19] text-[#F7F4EF]'
-                  : 'border border-[#DDD5C8] bg-white'
-              }`}
-            >
-              <span
-                className={`self-start rounded-full px-3 py-1 text-xs uppercase tracking-wider ${
-                  highlight
-                    ? 'bg-[#B8A082]/20 text-[#B8A082]'
-                    : 'bg-[#F0EBE3] text-[#7A7068]'
-                }`}
+          {PACKAGES.map(({ title, price, subtitle, preview, extra }, idx) => {
+            const open = !!expandedPkg[idx]
+            return (
+              <motion.div
+                key={title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                className="flex flex-col rounded-2xl bg-[#221E19] p-8 text-[#f2edea]"
               >
-                {tag}
-              </span>
+                <h3 className="font-display text-3xl leading-tight">{title}</h3>
+                <p className="mt-2 text-2xl font-medium text-[#f2edea]">{price}</p>
+                <p className="mt-1 text-xs text-[#989898]">[{subtitle}]</p>
 
-              <h3 className={`mt-5 font-display text-3xl ${highlight ? 'text-[#F7F4EF]' : ''}`}>
-                {name}
-              </h3>
+                <ul className="mt-6 space-y-2">
+                  {preview.map(item => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-[#c4c2aa]">
+                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#60899b]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
 
-              <ul className="mt-6 flex-1 space-y-3">
-                {items.map(item => (
-                  <li key={item} className="flex items-start gap-3 text-sm">
-                    <CheckCircle2
-                      className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#B8A082]"
-                      strokeWidth={1.5}
-                    />
-                    <span className={highlight ? 'text-[#C8B8A0]' : 'text-[#7A7068]'}>{item}</span>
-                  </li>
-                ))}
-              </ul>
+                <AnimatePresence initial={false}>
+                  {open && (
+                    <motion.ul
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-2 overflow-hidden space-y-2"
+                    >
+                      {extra.map(item => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-[#c4c2aa]">
+                          <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#60899b]" />
+                          {item}
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
 
-              <p className={`mt-6 text-xs leading-relaxed ${highlight ? 'text-[#7A7068]' : 'text-[#7A7068]'}`}>
-                {note}
-              </p>
+                <button
+                  onClick={() => setExpandedPkg(s => ({ ...s, [idx]: !s[idx] }))}
+                  className="mt-4 self-start text-sm text-[#989898] transition hover:text-[#f2edea]"
+                >
+                  {open ? 'Скрыть ↑' : 'Раскрыть ↓'}
+                </button>
 
-              <a
-                href="#contact"
-                className={`mt-8 inline-block rounded-full px-6 py-3 text-center text-sm transition ${
-                  highlight
-                    ? 'bg-[#F7F4EF] text-[#1C1814] hover:bg-white'
-                    : 'border border-[#1C1814] text-[#1C1814] hover:bg-[#1C1814] hover:text-[#F7F4EF]'
-                }`}
-              >
-                Обсудить
-              </a>
-            </motion.div>
-          ))}
+                <div className="flex-1" />
+
+                <a
+                  href="https://wa.me/77083460065"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 block rounded-xl bg-[#60899b] py-4 text-center text-sm font-semibold text-white transition hover:bg-[#4a7a8a]"
+                >
+                  Рассчитать стоимость
+                </a>
+              </motion.div>
+            )
+          })}
         </div>
 
-        <p className="mt-8 text-center text-sm text-[#7A7068]">
+        <p className="mt-8 text-center text-sm text-[#989898]">
           Стоимость рассчитывается индивидуально в зависимости от площади, задачи и состава проекта.
         </p>
       </section>
 
-      {/* ── Process ── */}
-      <section className="bg-[#F0EBE3] py-24 md:py-32">
-        <div className="mx-auto max-w-[1200px] px-6">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14">
-            <SectionLabel>Как мы работаем</SectionLabel>
-            <h2 className="font-display text-4xl md:text-5xl">Этапы работы</h2>
-          </motion.div>
 
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-          >
-            {PROCESS.map(({ n, title, desc }) => (
-              <motion.div
-                key={n}
-                variants={fadeUp}
-                className="rounded-2xl bg-white p-7"
-              >
-                <span className="font-display text-4xl text-[#DDD5C8]">{n}</span>
-                <h3 className="mt-4 font-medium leading-snug">{title}</h3>
-                <p className="mt-3 text-sm text-[#7A7068] leading-relaxed">{desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Why us ── */}
-      <section className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
-        <div className="grid gap-16 md:grid-cols-2 md:items-start">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-            <SectionLabel>Почему мы</SectionLabel>
-            <h2 className="font-display text-4xl md:text-5xl">
-              Почему выбирают MAG Studio
-            </h2>
-            <p className="mt-6 text-[#7A7068] leading-relaxed">
-              Мы создаём интерьеры, где визуал и функциональность существуют в
-              равновесии — и сопровождаем клиента на каждом шаге.
-            </p>
-          </motion.div>
-
-          <motion.ul
-            variants={stagger}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            className="space-y-3"
-          >
-            {WHY.map(item => (
-              <motion.li
-                key={item}
-                variants={fadeUp}
-                className="flex items-start gap-4 rounded-xl border border-[#DDD5C8] bg-white p-5"
-              >
-                <CheckCircle2
-                  className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#B8A082]"
-                  strokeWidth={1.5}
-                />
-                <span className="text-sm leading-relaxed">{item}</span>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </div>
-      </section>
 
       {/* ── Gallery ── */}
-      <section id="gallery" className="bg-[#F0EBE3] py-24 md:py-32">
+      <section id="gallery" className="bg-[#e8e7de] py-24 md:py-32">
         <div className="mx-auto max-w-[1200px] px-6">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-10">
             <SectionLabel>Портфолио</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl">Визуальное направление</h2>
-            <p className="mt-4 max-w-xl text-[#7A7068]">
+            <p className="mt-4 max-w-xl text-[#989898]">
               Современные, чистые и продуманные интерьеры с акцентом на эстетику,
               функциональность и реализацию.
             </p>
@@ -606,7 +566,7 @@ export default function App() {
             ))}
           </motion.div>
 
-          <p className="mt-8 text-center text-sm text-[#7A7068]">
+          <p className="mt-8 text-center text-sm text-[#989898]">
             Мы создаём интерьеры, в которых важны не только визуал и атмосфера,
             но и удобство повседневной жизни.
           </p>
@@ -630,118 +590,60 @@ export default function App() {
               viewport={{ once: true, amount: 0.3 }}
               className="rounded-2xl bg-[#221E19] p-8"
             >
-              <h3 className="font-display text-2xl text-[#F7F4EF]">{title}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-[#8A8078]">{desc}</p>
+              <h3 className="font-display text-2xl text-[#f2edea]">{title}</h3>
+              <p className="mt-4 text-sm leading-relaxed text-[#989898]">{desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ── FAQ ── */}
-      <section id="faq" className="bg-[#F0EBE3] py-24 md:py-32">
-        <div className="mx-auto max-w-[780px] px-6">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-12">
-            <SectionLabel>FAQ</SectionLabel>
-            <h2 className="font-display text-4xl md:text-5xl">Часто задаваемые вопросы</h2>
-          </motion.div>
-
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-            {FAQ.map((item, i) => (
-              <FAQItem
-                key={i}
-                q={item.q}
-                a={item.a}
-                isOpen={openFaq === i}
-                toggle={() => setOpenFaq(openFaq === i ? null : i)}
-              />
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* ── Contact ── */}
-      <section id="contact" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
-        <div className="grid gap-16 md:grid-cols-2 md:items-start">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-            <SectionLabel>Заявка</SectionLabel>
-            <h2 className="font-display text-4xl md:text-5xl">Обсудим ваш проект</h2>
-            <p className="mt-5 text-[#7A7068] leading-relaxed">
-              Оставьте заявку, и мы свяжемся с вами, чтобы обсудить задачу,
-              формат работы и ориентир по стоимости.
-            </p>
+      <section id="contact" className="mx-auto max-w-[640px] px-6 py-24 md:py-32">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-10 text-center">
+          <SectionLabel>Заявка</SectionLabel>
+          <h2 className="font-display text-4xl md:text-5xl">Обсудим ваш проект</h2>
+          <p className="mt-5 text-[#989898] leading-relaxed">
+            Оставьте заявку, и мы свяжемся с вами, чтобы обсудить задачу,
+            формат работы и ориентир по стоимости.
+          </p>
+        </motion.div>
 
-            <div className="mt-10 space-y-4">
-              <a
-                href="tel:+77083460065"
-                className="flex items-center gap-3 text-sm transition hover:text-[#7A7068]"
-              >
-                <Phone className="h-4 w-4 text-[#B8A082]" />
-                +7 708 346 00 65
-              </a>
-              <a
-                href="https://wa.me/77083460065"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm transition hover:text-[#7A7068]"
-              >
-                <MessageCircle className="h-4 w-4 text-[#B8A082]" />
-                WhatsApp
-              </a>
-              <a
-                href="https://instagram.com/magstudio.kz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm transition hover:text-[#7A7068]"
-              >
-                <Instagram className="h-4 w-4 text-[#B8A082]" />
-                @magstudio.kz
-              </a>
-            </div>
-
-            <div className="mt-10 overflow-hidden rounded-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=900&auto=format&fit=crop&q=80"
-                alt="Студия MAG"
-                className="h-60 w-full object-cover"
-              />
-            </div>
-          </motion.div>
-
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
             {submitted ? (
-              <div className="flex min-h-[440px] flex-col items-center justify-center rounded-2xl border border-[#DDD5C8] bg-white p-10 text-center">
-                <CheckCircle2 className="h-12 w-12 text-[#B8A082]" strokeWidth={1} />
+              <div className="flex min-h-[440px] flex-col items-center justify-center rounded-2xl border border-[#d5d4c8] bg-white p-10 text-center">
+                <CheckCircle2 className="h-12 w-12 text-[#60899b]" strokeWidth={1} />
                 <h3 className="mt-5 font-display text-2xl">Спасибо!</h3>
-                <p className="mt-3 text-sm text-[#7A7068]">
+                <p className="mt-3 text-sm text-[#989898]">
                   Мы свяжемся с вами в ближайшее время для обсуждения проекта.
                 </p>
               </div>
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="rounded-2xl border border-[#DDD5C8] bg-white p-8 space-y-4"
+                className="rounded-2xl border border-[#d5d4c8] bg-white p-8 space-y-4"
               >
                 <div>
-                  <label className="mb-1.5 block text-xs text-[#7A7068]">Имя</label>
+                  <label className="mb-1.5 block text-xs text-[#989898]">Имя</label>
                   <input
                     required
                     type="text"
                     placeholder="Ваше имя"
-                    className="w-full rounded-xl border border-[#DDD5C8] bg-[#F7F4EF] px-4 py-3 text-sm outline-none transition focus:border-[#B8A082]"
+                    className="w-full rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm outline-none transition focus:border-[#60899b]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs text-[#7A7068]">Телефон</label>
+                  <label className="mb-1.5 block text-xs text-[#989898]">Телефон</label>
                   <input
                     required
                     type="tel"
                     placeholder="+7 ___ ___ __ __"
-                    className="w-full rounded-xl border border-[#DDD5C8] bg-[#F7F4EF] px-4 py-3 text-sm outline-none transition focus:border-[#B8A082]"
+                    className="w-full rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm outline-none transition focus:border-[#60899b]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs text-[#7A7068]">Тип объекта</label>
-                  <select className="w-full rounded-xl border border-[#DDD5C8] bg-[#F7F4EF] px-4 py-3 text-sm text-[#7A7068] outline-none transition focus:border-[#B8A082]">
+                  <label className="mb-1.5 block text-xs text-[#989898]">Тип объекта</label>
+                  <select className="w-full rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm text-[#989898] outline-none transition focus:border-[#60899b]">
                     <option value="">Выберите тип</option>
                     <option>Квартира</option>
                     <option>Дом / коттедж</option>
@@ -750,31 +652,30 @@ export default function App() {
                   </select>
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs text-[#7A7068]">Комментарий</label>
+                  <label className="mb-1.5 block text-xs text-[#989898]">Комментарий</label>
                   <textarea
                     rows={3}
                     placeholder="Кратко о вашем проекте"
-                    className="w-full resize-none rounded-xl border border-[#DDD5C8] bg-[#F7F4EF] px-4 py-3 text-sm outline-none transition focus:border-[#B8A082]"
+                    className="w-full resize-none rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm outline-none transition focus:border-[#60899b]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-[#1C1814] py-3.5 text-sm font-medium text-[#F7F4EF] transition hover:bg-[#2A2420]"
+                  className="w-full rounded-full bg-[#1C1814] py-3.5 text-sm font-medium text-[#f2edea] transition hover:bg-[#2A2420]"
                 >
-                  Оставить заявку
+                  Рассчитать стоимость
                 </button>
                 <a
                   href="https://wa.me/77083460065"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-full border border-[#1C1814] py-3.5 text-sm font-medium transition hover:bg-[#1C1814] hover:text-[#F7F4EF]"
+                  className="flex w-full items-center justify-center gap-2 rounded-full border border-[#1C1814] py-3.5 text-sm font-medium transition hover:bg-[#1C1814] hover:text-[#f2edea]"
                 >
-                  <MessageCircle className="h-4 w-4" />
                   Написать в WhatsApp
                 </a>
 
-                <p className="text-center text-xs text-[#B8A082]">
+                <p className="text-center text-xs text-[#60899b]">
                   Нажимая кнопку, вы соглашаетесь с{' '}
                   <a href="/privacy" className="underline underline-offset-2">
                     Политикой конфиденциальности
@@ -783,77 +684,36 @@ export default function App() {
               </form>
             )}
           </motion.div>
-        </div>
       </section>
 
-      {/* ── Contacts strip ── */}
-      <section className="border-t border-[#DDD5C8] bg-white py-16">
-        <div className="mx-auto max-w-[1200px] px-6">
-          <div className="grid gap-8 sm:grid-cols-3">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#B8A082]">Адрес</p>
-              <p className="mt-3 text-sm text-[#7A7068]">Алматы, Казахстан</p>
-              <p className="mt-1 text-sm text-[#7A7068]">Работаем по Алматы, онлайн и с выездом на объект.</p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#B8A082]">Контакты</p>
-              <a href="tel:+77083460065" className="mt-3 block text-sm transition hover:text-[#7A7068]">
-                +7 708 346 00 65
-              </a>
-              <a href="https://wa.me/77083460065" target="_blank" rel="noopener noreferrer" className="mt-1 block text-sm transition hover:text-[#7A7068]">
-                WhatsApp
-              </a>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#B8A082]">Соцсети</p>
-              <a href="https://instagram.com/magstudio.kz" target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm transition hover:text-[#7A7068]">
-                @magstudio.kz
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── Footer ── */}
       <footer className="bg-[#221E19] py-12">
         <div className="mx-auto max-w-[1200px] px-6">
-          <div className="grid gap-8 md:grid-cols-3">
-            <div>
-              <Logo className="h-10 w-auto text-[#F7F4EF]" />
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#8A8078]">
-                Современные интерьеры и реализация под ключ для жилых и
-                коммерческих пространств.
-              </p>
-            </div>
+          <div className="flex flex-col items-center text-center gap-6">
+            <Logo className="h-10 w-auto text-[#f2edea]" />
+            <p className="max-w-xs text-sm leading-relaxed text-[#989898]">
+              Современные интерьеры и реализация под ключ для жилых и
+              коммерческих пространств.
+            </p>
 
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#B8A082]">Контакты</p>
-              <div className="mt-4 space-y-2 text-sm text-[#8A8078]">
+              <p className="text-xs uppercase tracking-[0.3em] text-[#60899b]">Контакты</p>
+              <div className="mt-3 space-y-1.5 text-sm text-[#989898]">
                 <p>Алматы, Казахстан</p>
-                <a href="tel:+77083460065" className="block transition hover:text-[#F7F4EF]">
+                <a href="tel:+77083460065" className="block transition hover:text-[#f2edea]">
                   +7 708 346 00 65
                 </a>
-                <a href="https://instagram.com/magstudio.kz" target="_blank" rel="noopener noreferrer" className="block transition hover:text-[#F7F4EF]">
+                <a href="https://instagram.com/magstudio.kz" target="_blank" rel="noopener noreferrer" className="block transition hover:text-[#f2edea]">
                   @magstudio.kz
                 </a>
               </div>
             </div>
-
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#B8A082]">Навигация</p>
-              <div className="mt-4 space-y-2 text-sm text-[#8A8078]">
-                {NAV_LINKS.map(link => (
-                  <a key={link.href} href={link.href} className="block transition hover:text-[#F7F4EF]">
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
 
-          <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[#2A2420] pt-6 text-xs text-[#5A5248] md:flex-row">
+          <div className="mt-10 flex flex-col items-center justify-center gap-2 border-t border-[#2A2420] pt-6 text-xs text-[#6b6b6b]">
             <p>© 2026 MAG Studio. Все права защищены.</p>
-            <a href="/privacy" className="transition hover:text-[#8A8078]">
+            <a href="/privacy" className="transition hover:text-[#989898]">
               Политика конфиденциальности
             </a>
           </div>
@@ -866,10 +726,62 @@ export default function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition hover:scale-110 hover:bg-[#20BD5A]"
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#60899b] shadow-lg transition hover:scale-110 hover:bg-[#4a7a8a]"
       >
-        <MessageCircle className="h-6 w-6 text-white" />
+        <img src="/whatsapp.svg" alt="WhatsApp" className="h-7 w-7" />
       </a>
+
+      {/* ── Mobile Top Nav Bar ── */}
+      <div className="fixed top-0 inset-x-0 z-50 md:hidden">
+        <div className="flex items-center justify-between border-b border-[#d5d4c8] bg-[#f2edea]/95 backdrop-blur-md px-6 py-3">
+          <a href="#" aria-label="MAG Studio">
+            <Logo className="h-7 w-auto" />
+          </a>
+          <button
+            onClick={() => setMobileBottomOpen(v => !v)}
+            className="flex items-center gap-1.5 rounded-full bg-[#1C1814] px-4 py-2 text-sm font-medium text-[#f2edea]"
+          >
+            {mobileBottomOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {mobileBottomOpen ? 'Закрыть' : 'Меню'}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {mobileBottomOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.22 }}
+              className="overflow-hidden border-b border-[#d5d4c8] bg-[#f2edea]/97 backdrop-blur-md px-6 py-5"
+            >
+              <nav className="flex flex-col">
+                {NAV_LINKS.map(link => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileBottomOpen(false)}
+                    className="flex items-center justify-between border-b border-[#d5d4c8] py-3.5 text-base font-medium text-[#1C1814] last:border-0"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="h-4 w-4 text-[#989898]" />
+                  </a>
+                ))}
+                <a
+                  href="https://wa.me/77083460065"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileBottomOpen(false)}
+                  className="mt-4 flex items-center justify-center gap-2 rounded-full bg-[#60899b] py-3 text-sm font-medium text-white"
+                >
+                  <img src="/whatsapp.svg" alt="" className="h-5 w-5" />
+                  Написать в WhatsApp
+                </a>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   )
 }
