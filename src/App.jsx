@@ -429,17 +429,18 @@ export default function App() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.15 }}
+              className="text-center"
             >
               <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
                 Дизайн интерьера и ремонт под ключ
               </h1>
 
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#c4c2aa]">
+              <p className="mx-auto mt-10 max-w-sm text-sm leading-relaxed text-[#c4c2aa]">
                 Создаём интерьеры, которые можно реально реализовать: от планировки
                 и дизайн-проекта до авторского надзора и ремонта
               </p>
 
-              <div className="mt-10 flex flex-wrap gap-3">
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
                 <a
                   href="#contact"
                   className="rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
