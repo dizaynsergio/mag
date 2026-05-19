@@ -439,19 +439,6 @@ export default function App() {
                 и дизайн-проекта до авторского надзора и ремонта.
               </p>
 
-              <ul className="mt-8 space-y-2.5">
-                {[
-                  'Современный и понятный подход',
-                  'Интерьеры с учётом бюджета и реальной реализации',
-                  'Сопровождение от идеи до готового результата',
-                ].map(item => (
-                  <li key={item} className="flex items-center gap-3 text-sm text-[#f2edea]">
-                    <span className="h-px w-6 flex-shrink-0 bg-[#60899b]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
               <div className="mt-10 flex flex-wrap gap-3">
                 <a
                   href="#contact"
