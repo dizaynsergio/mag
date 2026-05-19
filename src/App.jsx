@@ -814,14 +814,11 @@ export default function App() {
 
       {/* ── Mobile Top Nav Bar ── */}
       <div className="fixed top-0 inset-x-0 z-50 md:hidden">
-        <div className="flex items-center justify-between border-b border-[#d5d4c8] bg-[#f2edea]/95 backdrop-blur-md px-6 py-3">
-          <a href="#" aria-label="MAG Studio">
-            <Logo className="h-7 w-auto" />
-          </a>
+        <div className="grid grid-cols-3 items-center border-b border-[#d5d4c8] bg-[#f2edea]/95 backdrop-blur-md px-6 py-3">
           <button
             onClick={() => setMobileBottomOpen(v => !v)}
             aria-label={mobileBottomOpen ? 'Закрыть меню' : 'Открыть меню'}
-            className="relative flex h-6 w-7 flex-col items-center justify-center"
+            className="relative flex h-6 w-7 flex-col items-center justify-center justify-self-start"
           >
             <span
               className={`absolute h-0.5 w-7 bg-[#1C1814] transition-all duration-300 ${
@@ -839,6 +836,16 @@ export default function App() {
               }`}
             />
           </button>
+          <a href="#" aria-label="MAG Studio" className="justify-self-center">
+            <Logo className="h-7 w-auto" />
+          </a>
+          <a
+            href="tel:+77083460065"
+            aria-label="Позвонить"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1C1814] text-[#f2edea] justify-self-end transition active:scale-95"
+          >
+            <Phone className="h-4 w-4" />
+          </a>
         </div>
 
         <AnimatePresence>
