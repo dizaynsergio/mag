@@ -782,28 +782,38 @@ export default function App() {
 
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-[#60899b]">Контакты</p>
-              <div className="mt-3 text-sm text-[#989898]">
+              <div className="mt-4 flex flex-col gap-3">
+                <a
+                  href="tel:+77083460065"
+                  className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-[#60899b]/20 transition duration-300 hover:scale-[1.03]"
+                  style={{
+                    background: 'linear-gradient(110deg, #2A2420 0%, #60899b 35%, #f2edea 50%, #60899b 65%, #2A2420 100%)',
+                    backgroundSize: '300% 100%',
+                    animation: 'shimmer 4s linear infinite',
+                  }}
+                >
+                  <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+                  <span>+7 708 346 00 65</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                </a>
+                <a
+                  href="https://instagram.com/magstudio.kz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-[#60899b]/20 transition duration-300 hover:scale-[1.03]"
+                  style={{
+                    background: 'linear-gradient(110deg, #2A2420 0%, #60899b 35%, #f2edea 50%, #60899b 65%, #2A2420 100%)',
+                    backgroundSize: '300% 100%',
+                    animation: 'shimmer 4s linear infinite',
+                  }}
+                >
+                  <Instagram className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                  <span>@magstudio.kz</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                </a>
+              </div>
+              <div className="mt-4 text-sm text-[#989898]">
                 <p>г. Алматы, Казахстан</p>
-                <div className="mt-4 flex flex-col gap-3">
-                  <a
-                    href="tel:+77083460065"
-                    className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-[#3A332D] bg-[#3A332D] px-5 py-2.5 text-[#f2edea] transition duration-300 hover:border-[#60899b] hover:bg-[#60899b] hover:text-white"
-                  >
-                    <Phone className="h-4 w-4 text-[#60899b] transition-transform duration-300 group-hover:rotate-12 group-hover:text-white" />
-                    <span>+7 708 346 00 65</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
-                  </a>
-                  <a
-                    href="https://instagram.com/magstudio.kz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-[#3A332D] bg-[#3A332D] px-5 py-2.5 text-[#f2edea] transition duration-300 hover:border-[#60899b] hover:bg-[#60899b] hover:text-white"
-                  >
-                    <Instagram className="h-4 w-4 text-[#60899b] transition-transform duration-300 group-hover:scale-110 group-hover:text-white" />
-                    <span>@magstudio.kz</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
-                  </a>
-                </div>
               </div>
             </div>
           </div>
