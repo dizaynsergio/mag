@@ -311,19 +311,6 @@ export default function App() {
     return () => observer.disconnect()
   }, [])
 
-  function scrollToSection(id) {
-    const el = document.getElementById(id)
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 72
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
-
-  function handleNavClick(e, href) {
-    if (!href.startsWith('#')) return
-    e.preventDefault()
-    scrollToSection(href.slice(1))
-  }
-
   function handleSubmit(e) {
     e.preventDefault()
     setSubmitted(true)
@@ -361,7 +348,6 @@ export default function App() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={e => handleNavClick(e, link.href)}
                   className={`relative text-sm transition ${baseColor} ${hoverColor} ${activeColor}`}
                 >
                   {link.label}
@@ -405,7 +391,7 @@ export default function App() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={e => { handleNavClick(e, link.href); setMobileOpen(false) }}
+                    onClick={() => setMobileOpen(false)}
                     className="text-base text-[#1C1814]"
                   >
                     {link.label}
@@ -434,10 +420,6 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
           >
-            <p className="mb-6 text-xs uppercase tracking-[0.42em] text-[#60899b]">
-              Алматы · Казахстан
-            </p>
-
             <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
               Дизайн интерьера и ремонт под ключ.
             </h1>
@@ -463,7 +445,6 @@ export default function App() {
             <div className="mt-10 flex flex-wrap gap-3">
               <a
                 href="#contact"
-                onClick={e => handleNavClick(e, '#contact')}
                 className="rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
               >
                 Рассчитать стоимость
@@ -800,7 +781,7 @@ export default function App() {
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-[#60899b]">Контакты</p>
               <div className="mt-3 space-y-1.5 text-sm text-[#989898]">
-                <p>Алматы, Казахстан</p>
+                <p>г. Алматы, Казахстан</p>
                 <a href="tel:+77083460065" className="block transition hover:text-[#f2edea]">
                   +7 708 346 00 65
                 </a>
@@ -826,9 +807,9 @@ export default function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#60899b] shadow-lg transition hover:scale-110 hover:bg-[#4a7a8a]"
+        className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition hover:scale-110 hover:bg-[#1DA851]"
       >
-        <img src="/whatsapp.svg" alt="WhatsApp" className="h-7 w-7" />
+        <img src="/whatsapp.svg" alt="WhatsApp" className="h-8 w-8" />
       </a>
 
       {/* ── Mobile Top Nav Bar ── */}
@@ -839,10 +820,24 @@ export default function App() {
           </a>
           <button
             onClick={() => setMobileBottomOpen(v => !v)}
-            className="flex items-center gap-1.5 rounded-full bg-[#1C1814] px-4 py-2 text-sm font-medium text-[#f2edea]"
+            aria-label={mobileBottomOpen ? 'Закрыть меню' : 'Открыть меню'}
+            className="relative flex h-6 w-7 flex-col items-center justify-center"
           >
-            {mobileBottomOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            {mobileBottomOpen ? 'Закрыть' : 'Меню'}
+            <span
+              className={`absolute h-0.5 w-7 bg-[#1C1814] transition-all duration-300 ${
+                mobileBottomOpen ? 'rotate-45' : '-translate-y-2'
+              }`}
+            />
+            <span
+              className={`absolute h-0.5 w-7 bg-[#1C1814] transition-all duration-300 ${
+                mobileBottomOpen ? 'opacity-0' : 'opacity-100'
+              }`}
+            />
+            <span
+              className={`absolute h-0.5 w-7 bg-[#1C1814] transition-all duration-300 ${
+                mobileBottomOpen ? '-rotate-45' : 'translate-y-2'
+              }`}
+            />
           </button>
         </div>
 
@@ -860,7 +855,7 @@ export default function App() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={e => { handleNavClick(e, link.href); setMobileBottomOpen(false) }}
+                    onClick={() => setMobileBottomOpen(false)}
                     className="flex items-center justify-between border-b border-[#d5d4c8] py-3.5 text-base font-medium text-[#1C1814] last:border-0"
                   >
                     {link.label}
