@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, Building2, LayoutGrid, Box, FileText, Eye, ShoppingBag, Hammer,
@@ -222,11 +222,24 @@ function RenderCarousel({ label, images }) {
   const [idx, setIdx] = useState(0)
   const prev = () => setIdx(i => (i - 1 + images.length) % images.length)
   const next = () => setIdx(i => (i + 1) % images.length)
+  const touchStartX = useRef(null)
+  const onTouchStart = e => { touchStartX.current = e.touches[0].clientX }
+  const onTouchEnd = e => {
+    if (touchStartX.current === null) return
+    const delta = e.changedTouches[0].clientX - touchStartX.current
+    if (delta < -40) next()
+    else if (delta > 40) prev()
+    touchStartX.current = null
+  }
 
   return (
     <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
       <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#60899b]">{label}</p>
-      <div className="relative overflow-hidden rounded-2xl bg-[#1C1814]">
+      <div
+        className="relative overflow-hidden rounded-2xl bg-[#1C1814] touch-pan-y"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <AnimatePresence mode="wait">
           <motion.img
             key={images[idx]}
@@ -236,7 +249,8 @@ function RenderCarousel({ label, images }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="h-[340px] w-full object-cover md:h-[480px]"
+            draggable={false}
+            className="h-[340px] w-full object-cover md:h-[480px] select-none"
           />
         </AnimatePresence>
 
@@ -512,7 +526,7 @@ export default function App() {
 
       {/* ── Packages ── */}
       <section id="packages" className="mx-auto max-w-[1200px] px-6 py-16 md:py-20">
-        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14 text-center">
           <h2 className="font-display text-4xl md:text-5xl">Пакеты услуг</h2>
         </motion.div>
 
@@ -593,7 +607,6 @@ export default function App() {
       <section id="gallery" className="py-16 md:py-20">
         <div className="mx-auto max-w-[1200px] px-6">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14 text-center">
-            <SectionLabel>Портфолио</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl">Наши проекты</h2>
             <p className="mt-4 text-[#989898]">3D-рендеры реализованных интерьеров</p>
           </motion.div>
@@ -667,7 +680,6 @@ export default function App() {
       {/* ── Contact ── */}
       <section id="contact" className="mx-auto max-w-[640px] px-6 py-16 md:py-20">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-10 text-center">
-          <SectionLabel>Заявка</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl">Обсудим ваш проект</h2>
           <p className="mt-5 text-[#989898] leading-relaxed">
             Оставьте заявку, и мы свяжемся с вами, чтобы обсудить задачу,
@@ -767,10 +779,12 @@ export default function App() {
               <p className="text-xs uppercase tracking-[0.3em] text-[#60899b]">Контакты</p>
               <div className="mt-3 space-y-1.5 text-sm text-[#989898]">
                 <p>г. Алматы, Казахстан</p>
-                <a href="tel:+77083460065" className="block transition hover:text-[#f2edea]">
+                <a href="tel:+77083460065" className="flex items-center gap-2 transition hover:text-[#f2edea]">
+                  <Phone className="h-4 w-4" />
                   +7 708 346 00 65
                 </a>
-                <a href="https://instagram.com/magstudio.kz" target="_blank" rel="noopener noreferrer" className="block transition hover:text-[#f2edea]">
+                <a href="https://instagram.com/magstudio.kz" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 transition hover:text-[#f2edea]">
+                  <Instagram className="h-4 w-4" />
                   @magstudio.kz
                 </a>
               </div>
