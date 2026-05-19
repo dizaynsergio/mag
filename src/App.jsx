@@ -412,35 +412,33 @@ export default function App() {
       </header>
 
       {/* ── Hero ── */}
-      <section className="grid min-h-screen md:grid-cols-[45%_55%]">
-        {/* Left dark panel */}
-        <div className="relative flex flex-col justify-end bg-[#221E19] px-8 pb-16 pt-32 md:px-14 md:pb-24">
+      <section className="relative min-h-screen overflow-hidden">
+        <motion.img
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2 }}
+          src="/renders/living-1.png"
+          alt="Интерьер MAG Studio"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1814]/85 via-[#1C1814]/55 to-[#1C1814]/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1C1814]/40 via-transparent to-[#1C1814]/40" />
+
+        <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col justify-center px-6 pt-28 pb-20 md:px-10 md:pt-32 md:pb-28">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
+            className="max-w-2xl"
           >
-            <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
+            <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-6xl lg:text-[72px]">
               Дизайн интерьера и ремонт под ключ.
             </h1>
 
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#989898]">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-[#c4c2aa] md:text-lg">
               Создаём интерьеры, которые можно реально реализовать: от планировки
               и дизайн-проекта до авторского надзора и ремонта.
             </p>
-
-            <ul className="mt-8 space-y-2.5">
-              {[
-                'Современный и понятный подход',
-                'Интерьеры с учётом бюджета и реальной реализации',
-                'Сопровождение от идеи до готового результата',
-              ].map(item => (
-                <li key={item} className="flex items-center gap-3 text-sm text-[#c4c2aa]">
-                  <span className="h-px w-6 flex-shrink-0 bg-[#60899b]" />
-                  {item}
-                </li>
-              ))}
-            </ul>
 
             <div className="mt-10 flex flex-wrap gap-3">
               <a
@@ -461,21 +459,6 @@ export default function App() {
             </div>
           </motion.div>
         </div>
-
-        {/* Right image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2 }}
-          className="relative h-[55vw] md:h-auto"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&auto=format&fit=crop&q=80"
-            alt="Интерьер MAG Studio"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#221E19]/20 to-transparent" />
-        </motion.div>
       </section>
 
       {/* ── About / Directions ── */}
