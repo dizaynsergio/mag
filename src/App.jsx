@@ -546,14 +546,19 @@ export default function App() {
                 <p className="mt-2 text-2xl font-medium text-[#f2edea]">{price}</p>
                 <p className="mt-1 text-xs text-[#989898]">[{subtitle}]</p>
 
-                <ul className="mt-6 space-y-2">
-                  {preview.map(item => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-[#c4c2aa]">
-                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#60899b]" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div className="relative">
+                  <ul className="mt-6 space-y-2">
+                    {preview.map(item => (
+                      <li key={item} className="flex items-start gap-2 text-sm text-[#c4c2aa]">
+                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#60899b]" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  {!open && (
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-[#221E19]" />
+                  )}
+                </div>
 
                 <AnimatePresence initial={false}>
                   {open && (
