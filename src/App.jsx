@@ -787,9 +787,9 @@ export default function App() {
                 <div className="mt-4 flex flex-col gap-3">
                   <a
                     href="tel:+77083460065"
-                    className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-[#2A2420] bg-[#2A2420]/40 px-5 py-2.5 text-[#c4c2aa] transition duration-300 hover:border-[#60899b] hover:bg-[#60899b]/15 hover:text-[#f2edea]"
+                    className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-[#3A332D] bg-[#3A332D] px-5 py-2.5 text-[#f2edea] transition duration-300 hover:border-[#60899b] hover:bg-[#60899b] hover:text-white"
                   >
-                    <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12 group-hover:text-[#60899b]" />
+                    <Phone className="h-4 w-4 text-[#60899b] transition-transform duration-300 group-hover:rotate-12 group-hover:text-white" />
                     <span>+7 708 346 00 65</span>
                     <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                   </a>
@@ -797,9 +797,9 @@ export default function App() {
                     href="https://instagram.com/magstudio.kz"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-[#2A2420] bg-[#2A2420]/40 px-5 py-2.5 text-[#c4c2aa] transition duration-300 hover:border-[#60899b] hover:bg-[#60899b]/15 hover:text-[#f2edea]"
+                    className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-[#3A332D] bg-[#3A332D] px-5 py-2.5 text-[#f2edea] transition duration-300 hover:border-[#60899b] hover:bg-[#60899b] hover:text-white"
                   >
-                    <Instagram className="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#60899b]" />
+                    <Instagram className="h-4 w-4 text-[#60899b] transition-transform duration-300 group-hover:scale-110 group-hover:text-white" />
                     <span>@magstudio.kz</span>
                     <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                   </a>
