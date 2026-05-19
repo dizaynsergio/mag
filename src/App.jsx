@@ -421,7 +421,7 @@ export default function App() {
           alt="Интерьер MAG Studio"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1814]/70 from-0% via-[#1C1814]/85 via-50% to-[#1C1814]/40 to-100% md:from-[#1C1814]/70 md:via-[#1C1814]/75 md:via-55% md:to-[#1C1814]/15 md:to-100%" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1814]/70 from-0% via-[#1C1814]/70 via-50% to-[#1C1814]/40 to-100% md:from-[#1C1814]/70 md:via-[#1C1814]/70 md:via-55% md:to-[#1C1814]/15 md:to-100%" />
 
         <div className="relative grid min-h-screen md:grid-cols-[45%_55%]">
           <div className="flex flex-col justify-end px-8 pb-16 pt-32 md:px-14 md:pb-24">
