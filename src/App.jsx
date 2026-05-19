@@ -412,70 +412,67 @@ export default function App() {
       </header>
 
       {/* ── Hero ── */}
-      <section className="grid min-h-screen md:grid-cols-[45%_55%]">
-        {/* Left dark panel */}
-        <div className="relative flex flex-col justify-end bg-[#221E19] px-8 pb-16 pt-32 md:px-14 md:pb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15 }}
-          >
-            <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
-              Дизайн интерьера и ремонт под ключ.
-            </h1>
-
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#989898]">
-              Создаём интерьеры, которые можно реально реализовать: от планировки
-              и дизайн-проекта до авторского надзора и ремонта.
-            </p>
-
-            <ul className="mt-8 space-y-2.5">
-              {[
-                'Современный и понятный подход',
-                'Интерьеры с учётом бюджета и реальной реализации',
-                'Сопровождение от идеи до готового результата',
-              ].map(item => (
-                <li key={item} className="flex items-center gap-3 text-sm text-[#c4c2aa]">
-                  <span className="h-px w-6 flex-shrink-0 bg-[#60899b]" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href="#contact"
-                className="rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
-              >
-                Рассчитать стоимость
-              </a>
-              <a
-                href="https://wa.me/77083460065"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-[#F7F4EF]/25 px-7 py-3.5 text-sm text-[#f2edea] transition hover:border-[#F7F4EF]/60"
-              >
-                <img src="/whatsapp.svg" alt="" className="h-4 w-4" />
-                Написать в WhatsApp
-              </a>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right image */}
-        <motion.div
+      <section className="relative min-h-screen overflow-hidden">
+        <motion.img
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2 }}
-          className="relative h-[55vw] md:h-auto"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&auto=format&fit=crop&q=80"
-            alt="Интерьер MAG Studio"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#221E19]/20 to-transparent" />
-        </motion.div>
+          src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&auto=format&fit=crop&q=80"
+          alt="Интерьер MAG Studio"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1814]/90 via-[#1C1814]/55 to-[#1C1814]/15 md:from-[#1C1814]/85 md:via-[#1C1814]/40 md:to-transparent" />
+
+        <div className="relative grid min-h-screen md:grid-cols-[45%_55%]">
+          <div className="flex flex-col justify-end px-8 pb-16 pt-32 md:px-14 md:pb-24">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.15 }}
+            >
+              <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
+                Дизайн интерьера и ремонт под ключ.
+              </h1>
+
+              <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#c4c2aa]">
+                Создаём интерьеры, которые можно реально реализовать: от планировки
+                и дизайн-проекта до авторского надзора и ремонта.
+              </p>
+
+              <ul className="mt-8 space-y-2.5">
+                {[
+                  'Современный и понятный подход',
+                  'Интерьеры с учётом бюджета и реальной реализации',
+                  'Сопровождение от идеи до готового результата',
+                ].map(item => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-[#f2edea]">
+                    <span className="h-px w-6 flex-shrink-0 bg-[#60899b]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-10 flex flex-wrap gap-3">
+                <a
+                  href="#contact"
+                  className="rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
+                >
+                  Рассчитать стоимость
+                </a>
+                <a
+                  href="https://wa.me/77083460065"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-full border border-[#F7F4EF]/40 bg-[#1C1814]/30 px-7 py-3.5 text-sm text-[#f2edea] backdrop-blur-sm transition hover:border-[#F7F4EF]/70"
+                >
+                  <img src="/whatsapp.svg" alt="" className="h-4 w-4" />
+                  Написать в WhatsApp
+                </a>
+              </div>
+            </motion.div>
+          </div>
+          <div />
+        </div>
       </section>
 
       {/* ── About / Directions ── */}
