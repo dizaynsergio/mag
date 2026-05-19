@@ -840,7 +840,7 @@ export default function App() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.22 }}
-              className="overflow-hidden border-b border-[#d5d4c8] bg-[#f2edea]/97 backdrop-blur-md px-6 py-5"
+              className="overflow-hidden border-b border-[#d5d4c8] bg-[#f2edea]/95 px-6 py-5"
             >
               <nav className="flex flex-col">
                 {NAV_LINKS.map(link => (
