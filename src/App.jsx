@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, Building2, LayoutGrid, Box, FileText, Eye, ShoppingBag, Hammer,
-  CheckCircle2, ChevronDown, Phone, ArrowUpRight,
+  CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, Phone, ArrowUpRight,
   Menu, X,
 } from 'lucide-react'
 import Logo from './components/Logo'
@@ -20,10 +20,10 @@ function Instagram(props) {
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const NAV_LINKS = [
-  { label: 'О нас', href: '#about' },
-  { label: 'Услуги', href: '#services' },
-  { label: 'Проекты', href: '#gallery' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Направления', href: '#about' },
+  { label: 'Пакеты услуг', href: '#packages' },
+  { label: 'Портфолио', href: '#gallery' },
+  { label: 'Этапы реализации', href: '#steps' },
   { label: 'Контакты', href: '#contact' },
 ]
 
@@ -148,6 +148,25 @@ const FAQ = [
   { q: 'Можно ли сделать проект в рамках конкретного бюджета?', a: 'Да, мы разрабатываем решения с учётом реального бюджета и дальнейшей реализации.' },
 ]
 
+const RENDER_GROUPS = [
+  {
+    label: 'Кухня',
+    images: ['/renders/kitchen-1.png', '/renders/kitchen-2.png', '/renders/kitchen-3.png'],
+  },
+  {
+    label: 'Гостиная',
+    images: ['/renders/living-1.png', '/renders/living-2.png', '/renders/living-3.png'],
+  },
+  {
+    label: 'Спальня',
+    images: ['/renders/bedroom-1.png', '/renders/bedroom-2.png', '/renders/bedroom-3.png'],
+  },
+  {
+    label: 'Санузел',
+    images: ['/renders/bathroom-1.png', '/renders/bathroom-2.png', '/renders/bathroom-3.png'],
+  },
+]
+
 // ─── Animation variants ───────────────────────────────────────────────────────
 
 const fadeUp = {
@@ -197,6 +216,66 @@ function FAQItem({ q, a, isOpen, toggle }) {
   )
 }
 
+// ─── RenderCarousel ──────────────────────────────────────────────────────────
+
+function RenderCarousel({ label, images }) {
+  const [idx, setIdx] = useState(0)
+  const prev = () => setIdx(i => (i - 1 + images.length) % images.length)
+  const next = () => setIdx(i => (i + 1) % images.length)
+
+  return (
+    <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+      <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#60899b]">{label}</p>
+      <div className="relative overflow-hidden rounded-2xl bg-[#1C1814]">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={images[idx]}
+            src={images[idx]}
+            alt={`${label} — рендер ${idx + 1}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="h-[340px] w-full object-cover md:h-[480px]"
+          />
+        </AnimatePresence>
+
+        {/* arrows */}
+        <button
+          onClick={prev}
+          className="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-[#1C1814]/60 text-white backdrop-blur-sm transition hover:bg-[#1C1814]/90"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-[#1C1814]/60 text-white backdrop-blur-sm transition hover:bg-[#1C1814]/90"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+
+        {/* counter */}
+        <div className="absolute bottom-4 right-4 rounded-full bg-[#1C1814]/60 px-3 py-1 text-xs text-white backdrop-blur-sm">
+          {idx + 1} / {images.length}
+        </div>
+      </div>
+
+      {/* dots */}
+      <div className="mt-4 flex justify-center gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === idx ? 'w-6 bg-[#60899b]' : 'w-1.5 bg-[#d5d4c8]'
+            }`}
+          />
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
 // ─── App ─────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -232,13 +311,26 @@ export default function App() {
     return () => observer.disconnect()
   }, [])
 
+  function scrollToSection(id) {
+    const el = document.getElementById(id)
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - 72
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+
+  function handleNavClick(e, href) {
+    if (!href.startsWith('#')) return
+    e.preventDefault()
+    scrollToSection(href.slice(1))
+  }
+
   function handleSubmit(e) {
     e.preventDefault()
     setSubmitted(true)
   }
 
   return (
-    <div className="bg-[#f2edea] text-[#1C1814] overflow-x-hidden">
+    <div className="bg-[#f2edea] text-[#1C1814] [overflow-x:clip]">
 
       {/* ── Nav ── */}
       <header
@@ -269,6 +361,7 @@ export default function App() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={e => handleNavClick(e, link.href)}
                   className={`relative text-sm transition ${baseColor} ${hoverColor} ${activeColor}`}
                 >
                   {link.label}
@@ -312,7 +405,7 @@ export default function App() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={e => { handleNavClick(e, link.href); setMobileOpen(false) }}
                     className="text-base text-[#1C1814]"
                   >
                     {link.label}
@@ -370,6 +463,7 @@ export default function App() {
             <div className="mt-10 flex flex-wrap gap-3">
               <a
                 href="#contact"
+                onClick={e => handleNavClick(e, '#contact')}
                 className="rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
               >
                 Рассчитать стоимость
@@ -451,7 +545,7 @@ export default function App() {
 
 
       {/* ── Packages ── */}
-      <section className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
+      <section id="packages" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14">
           <h2 className="font-display text-4xl md:text-5xl">Пакеты услуг</h2>
         </motion.div>
@@ -530,15 +624,47 @@ export default function App() {
 
 
       {/* ── Gallery ── */}
-      <section id="gallery" className="bg-[#e8e7de] py-24 md:py-32">
+      <section id="gallery" className="py-24 md:py-32">
         <div className="mx-auto max-w-[1200px] px-6">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-10">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14 text-center">
             <SectionLabel>Портфолио</SectionLabel>
-            <h2 className="font-display text-4xl md:text-5xl">Визуальное направление</h2>
-            <p className="mt-4 max-w-xl text-[#989898]">
-              Современные, чистые и продуманные интерьеры с акцентом на эстетику,
-              функциональность и реализацию.
-            </p>
+            <h2 className="font-display text-4xl md:text-5xl">Наши проекты</h2>
+            <p className="mt-4 text-[#989898]">3D-рендеры реализованных интерьеров</p>
+          </motion.div>
+
+          <div className="grid gap-12 md:grid-cols-2">
+            {RENDER_GROUPS.map(group => (
+              <RenderCarousel key={group.label} {...group} />
+            ))}
+          </div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.5 }}
+            className="mt-16 text-center"
+          >
+            <a
+              href="https://wa.me/77083460065"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 rounded-full bg-[#1C1814] px-10 py-4 text-sm font-medium text-[#f2edea] transition hover:bg-[#60899b]"
+            >
+              Хочу похожий проект
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Support ── */}
+      <section id="steps" className="bg-[#e8e7de] py-24 md:py-32">
+        <div className="mx-auto max-w-[1200px] px-6">
+
+          {/* Этапы реализации проекта */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14 text-center">
+            <h2 className="font-display text-4xl md:text-5xl">Этапы реализации проекта</h2>
           </motion.div>
 
           <motion.div
@@ -546,54 +672,28 @@ export default function App() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-2 gap-3 md:grid-cols-3"
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5"
           >
-            {GALLERY.map(({ src }, i) => (
+            {[
+              { n: '1', title: 'Заявка',              desc: 'Вы оставляете заявку или пишете нам в WhatsApp.' },
+              { n: '2', title: 'Консультация',         desc: 'Обсуждаем объект, площадь, задачи, бюджет и сроки.' },
+              { n: '3', title: 'Замер и планировка',   desc: 'Выезжаем на объект и разрабатываем планировочное решение.' },
+              { n: '4', title: 'Дизайн-проект',        desc: 'Готовим визуализации, чертежи и подбор материалов.' },
+              { n: '5', title: 'Реализация',           desc: 'Сопровождаем ремонт, закупки и работу подрядчиков.' },
+            ].map(({ n, title, desc }) => (
               <motion.div
-                key={i}
+                key={n}
                 variants={fadeUp}
-                className={`overflow-hidden rounded-2xl ${i === 1 || i === 4 ? 'row-span-2' : ''}`}
+                className="flex flex-col items-center text-center rounded-2xl bg-white p-7"
               >
-                <img
-                  src={src}
-                  alt={`Интерьер ${i + 1}`}
-                  loading="lazy"
-                  className={`w-full object-cover transition duration-500 hover:scale-105 ${
-                    i === 1 || i === 4 ? 'h-full min-h-[300px]' : 'h-52 md:h-60'
-                  }`}
-                />
+                <span className="font-display text-5xl font-light text-[#60899b] opacity-60">{n}</span>
+                <h3 className="mt-4 font-semibold leading-snug">{title}</h3>
+                <p className="mt-3 text-sm text-[#989898] leading-relaxed">{desc}</p>
               </motion.div>
             ))}
           </motion.div>
 
-          <p className="mt-8 text-center text-sm text-[#989898]">
-            Мы создаём интерьеры, в которых важны не только визуал и атмосфера,
-            но и удобство повседневной жизни.
-          </p>
-        </div>
-      </section>
 
-      {/* ── Support ── */}
-      <section className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
-        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14">
-          <SectionLabel>Реализация</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl">Сопровождение реализации</h2>
-        </motion.div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {SUPPORT.map(({ title, desc }) => (
-            <motion.div
-              key={title}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.3 }}
-              className="rounded-2xl bg-[#221E19] p-8"
-            >
-              <h3 className="font-display text-2xl text-[#f2edea]">{title}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-[#989898]">{desc}</p>
-            </motion.div>
-          ))}
         </div>
       </section>
 
@@ -760,7 +860,7 @@ export default function App() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileBottomOpen(false)}
+                    onClick={e => { handleNavClick(e, link.href); setMobileBottomOpen(false) }}
                     className="flex items-center justify-between border-b border-[#d5d4c8] py-3.5 text-base font-medium text-[#1C1814] last:border-0"
                   >
                     {link.label}
