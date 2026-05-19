@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, Building2, LayoutGrid, Box, FileText, Eye, ShoppingBag, Hammer,
   CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, Phone, ArrowUpRight,
-  Menu, X,
+  Menu, X, Calculator,
 } from 'lucide-react'
 import Logo from './components/Logo'
 
@@ -421,7 +421,7 @@ export default function App() {
           alt="Интерьер MAG Studio"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1814]/70 from-0% via-[#1C1814]/70 via-50% to-[#1C1814]/40 to-100% md:from-[#1C1814]/70 md:via-[#1C1814]/70 md:via-55% md:to-[#1C1814]/15 md:to-100%" />
+        <div className="absolute inset-0 bg-[#1C1814]/65" />
 
         <div className="relative grid min-h-screen md:grid-cols-[45%_55%]">
           <div className="flex flex-col justify-end px-8 pb-16 pt-32 md:px-14 md:pb-24">
@@ -443,8 +443,9 @@ export default function App() {
               <div className="mt-10 flex flex-wrap justify-center gap-3">
                 <a
                   href="#contact"
-                  className="rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
+                  className="flex items-center gap-2 rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
                 >
+                  <Calculator className="h-4 w-4" />
                   Рассчитать стоимость
                 </a>
                 <a
