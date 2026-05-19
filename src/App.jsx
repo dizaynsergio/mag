@@ -465,10 +465,9 @@ export default function App() {
       </section>
 
       {/* ── About / Directions ── */}
-      <section id="about" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
+      <section id="about" className="mx-auto max-w-[1200px] px-6 py-16 md:py-20">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14 text-center">
-          <SectionLabel>Наши направления</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl">Чем мы занимаемся</h2>
+          <h2 className="font-display text-4xl md:text-5xl">Наши направления</h2>
         </motion.div>
 
         <motion.div
@@ -512,7 +511,7 @@ export default function App() {
 
 
       {/* ── Packages ── */}
-      <section id="packages" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
+      <section id="packages" className="mx-auto max-w-[1200px] px-6 py-16 md:py-20">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14">
           <h2 className="font-display text-4xl md:text-5xl">Пакеты услуг</h2>
         </motion.div>
@@ -591,7 +590,7 @@ export default function App() {
 
 
       {/* ── Gallery ── */}
-      <section id="gallery" className="py-24 md:py-32">
+      <section id="gallery" className="py-16 md:py-20">
         <div className="mx-auto max-w-[1200px] px-6">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-14 text-center">
             <SectionLabel>Портфолио</SectionLabel>
@@ -626,7 +625,7 @@ export default function App() {
       </section>
 
       {/* ── Support ── */}
-      <section id="steps" className="bg-[#e8e7de] py-24 md:py-32">
+      <section id="steps" className="bg-[#e8e7de] py-16 md:py-20">
         <div className="mx-auto max-w-[1200px] px-6">
 
           {/* Этапы реализации проекта */}
@@ -666,7 +665,7 @@ export default function App() {
 
 
       {/* ── Contact ── */}
-      <section id="contact" className="mx-auto max-w-[640px] px-6 py-24 md:py-32">
+      <section id="contact" className="mx-auto max-w-[640px] px-6 py-16 md:py-20">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="mb-10 text-center">
           <SectionLabel>Заявка</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl">Обсудим ваш проект</h2>
