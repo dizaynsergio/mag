@@ -431,12 +431,12 @@ export default function App() {
               transition={{ duration: 0.9, delay: 0.15 }}
             >
               <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
-                Дизайн интерьера и ремонт под ключ.
+                Дизайн интерьера и ремонт под ключ
               </h1>
 
               <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#c4c2aa]">
                 Создаём интерьеры, которые можно реально реализовать: от планировки
-                и дизайн-проекта до авторского надзора и ремонта.
+                и дизайн-проекта до авторского надзора и ремонта
               </p>
 
               <div className="mt-10 flex flex-wrap gap-3">
