@@ -437,44 +437,41 @@ export default function App() {
         />
         <div className="absolute inset-0 bg-[#1C1814]/65" />
 
-        <div className="relative grid min-h-screen md:grid-cols-[45%_55%]">
-          <div className="flex flex-col justify-end px-8 pb-16 pt-32 md:px-14 md:pb-24">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.15 }}
-              className="text-center"
-            >
-              <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
-                Дизайн интерьера и ремонт под ключ
-              </h1>
+        <div className="relative flex min-h-screen items-end justify-center px-8 pb-16 pt-32 md:pb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.15 }}
+            className="max-w-3xl text-center"
+          >
+            <h1 className="font-display text-4xl leading-[1.08] text-[#f2edea] md:text-5xl lg:text-[56px]">
+              Дизайн интерьера и ремонт под ключ
+            </h1>
 
-              <p className="mx-auto mt-10 max-w-sm text-sm leading-relaxed text-[#c4c2aa]">
-                Создаём интерьеры, которые можно реально реализовать: от планировки
-                и дизайн-проекта до авторского надзора и ремонта
-              </p>
+            <p className="mx-auto mt-10 max-w-sm text-sm leading-relaxed text-[#c4c2aa]">
+              Создаём интерьеры, которые можно реально реализовать: от планировки
+              и дизайн-проекта до авторского надзора и ремонта
+            </p>
 
-              <div className="mt-10 flex flex-wrap justify-center gap-3">
-                <a
-                  href="#contact"
-                  className="flex items-center gap-2 rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
-                >
-                  <Calculator className="h-4 w-4" />
-                  Рассчитать стоимость
-                </a>
-                <a
-                  href="https://wa.me/77083460065"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-full border border-[#F7F4EF]/40 bg-[#1C1814]/30 px-7 py-3.5 text-sm text-[#f2edea] backdrop-blur-sm transition hover:border-[#F7F4EF]/70"
-                >
-                  <img src="/whatsapp.svg" alt="" className="h-4 w-4" />
-                  Написать в WhatsApp
-                </a>
-              </div>
-            </motion.div>
-          </div>
-          <div />
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <a
+                href="#contact"
+                className="flex items-center gap-2 rounded-full bg-[#f2edea] px-7 py-3.5 text-sm font-medium text-[#1C1814] transition hover:bg-white"
+              >
+                <Calculator className="h-4 w-4" />
+                Рассчитать стоимость
+              </a>
+              <a
+                href="https://wa.me/77083460065"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full border border-[#F7F4EF]/40 bg-[#1C1814]/30 px-7 py-3.5 text-sm text-[#f2edea] backdrop-blur-sm transition hover:border-[#F7F4EF]/70"
+              >
+                <img src="/whatsapp.svg" alt="" className="h-4 w-4" />
+                Написать в WhatsApp
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -782,7 +779,7 @@ export default function App() {
 
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-[#60899b]">Контакты</p>
-              <div className="mt-4 flex flex-col gap-3">
+              <div className="mt-4 flex flex-col items-center gap-3">
                 <a
                   href="tel:+77083460065"
                   className="group inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-[#60899b]/20 transition duration-300 hover:scale-[1.03]"
