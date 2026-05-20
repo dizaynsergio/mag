@@ -377,15 +377,24 @@ export default function App() {
             })}
           </nav>
 
-          <a
-            href="https://wa.me/77083460065"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-[#1C1814] px-5 py-2.5 text-sm text-[#f2edea] transition hover:bg-[#2A2420] md:inline-flex"
-          >
-            <img src="/whatsapp.svg" alt="" className="h-4 w-4" />
-            WhatsApp
-          </a>
+          <div className="hidden items-center gap-2 md:flex">
+            <a
+              href="https://instagram.com/magstudio.kz"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1C1814] text-[#f2edea] transition hover:bg-[#2A2420] hover:scale-105"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a
+              href="tel:+77083460065"
+              aria-label="Позвонить"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1C1814] text-[#f2edea] transition hover:bg-[#2A2420] hover:scale-105"
+            >
+              <Phone className="h-4 w-4" />
+            </a>
+          </div>
 
           <button onClick={() => setMobileOpen(v => !v)} className="p-2 md:hidden">
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -437,7 +446,7 @@ export default function App() {
         />
         <div className="absolute inset-0 bg-[#1C1814]/65" />
 
-        <div className="relative flex min-h-screen items-end justify-center px-8 pb-16 pt-32 md:pb-24">
+        <div className="relative flex min-h-screen items-center justify-center px-8 pb-16 pt-32 md:pb-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
