@@ -151,19 +151,19 @@ const FAQ = [
 const RENDER_GROUPS = [
   {
     label: 'Кухня',
-    images: ['/renders/kitchen-1.png', '/renders/kitchen-2.png', '/renders/kitchen-3.png'],
+    images: ['/renders/kitchen-1.jpg', '/renders/kitchen-2.jpg', '/renders/kitchen-3.jpg'],
   },
   {
     label: 'Гостиная',
-    images: ['/renders/living-1.png', '/renders/living-2.png', '/renders/living-3.png'],
+    images: ['/renders/living-1.jpg', '/renders/living-2.jpg', '/renders/living-3.jpg'],
   },
   {
     label: 'Спальня',
-    images: ['/renders/bedroom-1.png', '/renders/bedroom-2.png', '/renders/bedroom-3.png'],
+    images: ['/renders/bedroom-1.jpg', '/renders/bedroom-2.jpg', '/renders/bedroom-3.jpg'],
   },
   {
     label: 'Санузел',
-    images: ['/renders/bathroom-1.png', '/renders/bathroom-2.png', '/renders/bathroom-3.png'],
+    images: ['/renders/bathroom-1.jpg', '/renders/bathroom-2.jpg', '/renders/bathroom-3.jpg'],
   },
 ]
 
@@ -250,6 +250,8 @@ function RenderCarousel({ label, images }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
             draggable={false}
+            loading="lazy"
+            decoding="async"
             className="h-[340px] w-full object-cover md:h-[480px] select-none"
           />
         </AnimatePresence>
