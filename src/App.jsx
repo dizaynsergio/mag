@@ -302,6 +302,8 @@ export default function App() {
   const [scrolled, setScrolled]     = useState(false)
   const [activeSection, setActiveSection] = useState('')
   const [submitted, setSubmitted]   = useState(false)
+  const [sending, setSending]       = useState(false)
+  const [error, setError]           = useState('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -327,9 +329,65 @@ export default function App() {
     return () => observer.disconnect()
   }, [])
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    setSubmitted(true)
+
+    const token  = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
+    const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID
+
+    if (!token || !chatId) {
+      setError('Форма не настроена. Свяжитесь с нами по телефону или WhatsApp.')
+      return
+    }
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const name    = (data.get('name')    || '').toString().trim()
+    const phone   = (data.get('phone')   || '').toString().trim()
+    const type    = (data.get('type')    || '').toString().trim() || '—'
+    const comment = (data.get('comment') || '').toString().trim() || '—'
+
+    const escape = (s) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+    const text =
+      `<b>Новая заявка с сайта MAG</b>\n\n` +
+      `<b>Имя:</b> ${escape(name)}\n` +
+      `<b>Телефон:</b> ${escape(phone)}\n` +
+      `<b>Тип объекта:</b> ${escape(type)}\n` +
+      `<b>Комментарий:</b> ${escape(comment)}`
+
+    try {
+      setSending(true)
+      setError('')
+
+      const res = await fetch(
+        `https://api.telegram.org/bot${token}/sendMessage`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text,
+            parse_mode: 'HTML',
+            disable_web_page_preview: true,
+          }),
+        }
+      )
+
+      const json = await res.json()
+      if (!res.ok || !json.ok) {
+        throw new Error(json.description || 'Ошибка отправки')
+      }
+
+      setSubmitted(true)
+      form.reset()
+    } catch (err) {
+      console.error(err)
+      setError('Не удалось отправить заявку. Попробуйте ещё раз или напишите в WhatsApp.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -718,6 +776,7 @@ export default function App() {
                   <label className="mb-1.5 block text-xs text-[#989898]">Имя</label>
                   <input
                     required
+                    name="name"
                     type="text"
                     placeholder="Ваше имя"
                     className="w-full rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm outline-none transition focus:border-[#60899b]"
@@ -727,6 +786,7 @@ export default function App() {
                   <label className="mb-1.5 block text-xs text-[#989898]">Телефон</label>
                   <input
                     required
+                    name="phone"
                     type="tel"
                     placeholder="+7 ___ ___ __ __"
                     className="w-full rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm outline-none transition focus:border-[#60899b]"
@@ -734,7 +794,11 @@ export default function App() {
                 </div>
                 <div>
                   <label className="mb-1.5 block text-xs text-[#989898]">Тип объекта</label>
-                  <select className="w-full rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm text-[#989898] outline-none transition focus:border-[#60899b]">
+                  <select
+                    name="type"
+                    defaultValue=""
+                    className="w-full rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm text-[#989898] outline-none transition focus:border-[#60899b]"
+                  >
                     <option value="">Выберите тип</option>
                     <option>Квартира</option>
                     <option>Дом / коттедж</option>
@@ -745,17 +809,23 @@ export default function App() {
                 <div>
                   <label className="mb-1.5 block text-xs text-[#989898]">Комментарий</label>
                   <textarea
+                    name="comment"
                     rows={3}
                     placeholder="Кратко о вашем проекте"
                     className="w-full resize-none rounded-xl border border-[#d5d4c8] bg-[#f2edea] px-4 py-3 text-sm outline-none transition focus:border-[#60899b]"
                   />
                 </div>
 
+                {error && (
+                  <p className="text-center text-xs text-red-600">{error}</p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-[#1C1814] py-3.5 text-sm font-medium text-[#f2edea] transition hover:bg-[#2A2420]"
+                  disabled={sending}
+                  className="w-full rounded-full bg-[#1C1814] py-3.5 text-sm font-medium text-[#f2edea] transition hover:bg-[#2A2420] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Рассчитать стоимость
+                  {sending ? 'Отправляем…' : 'Рассчитать стоимость'}
                 </button>
                 <a
                   href="https://wa.me/77083460065"
