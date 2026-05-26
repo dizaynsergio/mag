@@ -332,13 +332,8 @@ export default function App() {
   async function handleSubmit(e) {
     e.preventDefault()
 
-    const token  = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
-    const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID
-
-    if (!token || !chatId) {
-      setError('Форма не настроена. Свяжитесь с нами по телефону или WhatsApp.')
-      return
-    }
+    const token  = '8802791011:AAHGSd4lXKxm0sUYQBXSvJRxv0KbAm1d5oc'
+    const chatId = '642467922'
 
     const form = e.currentTarget
     const data = new FormData(form)
